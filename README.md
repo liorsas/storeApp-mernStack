@@ -4,7 +4,7 @@ products page - allowing to add a new product and add a new product to customer(
 customer page - table of all the customer and their products.
 purchase page - allowing a wide searching of all the customer purchases.
 Client side - react js and redux 
-Server side - node js && Express .
+Server side - node js & Express .
 with MongoDB Database 
 including 3 collections 
 products
