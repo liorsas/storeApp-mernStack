@@ -1,0 +1,239 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+.amount-prod-btn{
+
+  float: left;
+  margin: 5px;
+  width: 200px;
+}
+
+.prods-grid{
+
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+
+
+.prod-items{
+
+  margin-left: -300px;
+
+}
+
+.cust-itams{
+
+ border: 1px solid black;
+ width: 300px;
+ margin-left: 500px;
+margin-bottom: 100px;
+}
+
+.prod-cust-btn{
+
+  margin-left: -150px;
+
+}
+
+.visiblestyle{
+visibility: visible;
+
+}
+
+.notvisiblestyle{
+visibility: hidden;
+
+}
+
+.sel-div{
+
+  margin: 10px;
+}
+
+.edit-prod-gen{
+
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.upd-prod-form{
+
+  border: 1px solid black;
+
+  width: 500px;
+  height: 350px ;
+  margin: 10px;
+  margin-left: 100px;
+
+
+}
+
+.upd-prod-nest{
+
+  margin-top: 50px;
+
+  
+}
+
+.lbl-field{
+  font-size: large;
+
+
+}
+.inp-field-prod{
+
+  margin: 5px;
+
+}
+
+.btn-upd-prod{
+
+  padding: 12px 26px;
+  margin: 5px;
+
+}
+
+.edit-prod-cust{
+width: 500px;
+height: 500px;
+
+
+}
+
+.buy-prod-btn{
+
+  float: left;
+  margin: 5px;
+
+}
+
+/* .visibleStyle{
+  visibility: visible;
+}
+
+.notvisiblestyle{
+
+  visibility: hidden;
+} */
+.abs-div{
+
+  position: absolute;
+  margin-left: 500px;
+  margin-top: 30px;
+  background-color: rgb(224, 221, 221);
+
+}
+
+
+.abs-div-form{
+
+  border: 2px solid black;
+  width:500px;
+  height: 400px;
+  margin:50px
+  
+}
+
+.cust-buy-prod-btn{
+
+  width:400px;
+  margin: 20px;
+
+}
+
+.tbl-td-cust-name{
+
+  cursor: pointer;
+}
+
+.purch-btn{
+
+  cursor: pointer;
+  padding: 12px 26px;
+  color: antiquewhite;
+  background-color: black;
+}
+
+.new-cust-inp-box{
+
+  margin: 10px;
+  
+
+}
+
+
+
+.new-cust-inp-field{
+
+  margin: 5px;
+  padding: 8px 36px;
+  font-weight: bold;
+}
+
+.new-cust-btn{
+
+  margin: 5px;
+
+}
+
+.abs-prod-div{
+
+ 
+  margin-left: 500px;
+  margin-top: 30px;
+ 
+}
+
+.abs-prod-div-form{
+  border: 2px solid black;
+  width:500px;
+  height: 400px;
+  margin:50px
+
+}
+
+
+.linkColor{
+
+  color: gray;
+  font-weight: bold;
+
+}
