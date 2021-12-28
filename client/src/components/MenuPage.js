@@ -8,13 +8,13 @@ function MenuPage() {
   const dispatch = useDispatch();
 
   useEffect(async () => {
-    let productsWs = await axios.get("http://localhost:3001/api/product");
+    let productsWs = await axios.get("https://store-app-mern-stack.herokuapp.com/api/product");
     let productsArr = productsWs.data;
 
-    let customersWs = await axios.get("http://localhost:3001/api/customers");
+    let customersWs = await axios.get("https://store-app-mern-stack.herokuapp.com/api/customers");
     let customersArr = customersWs.data;
 
-    let purchasesWs = await axios.get("http://localhost:3001/api/purchases");
+    let purchasesWs = await axios.get("https://store-app-mern-stack.herokuapp.com/api/purchases");
     let purchasesArr = purchasesWs.data;
 
     dispatch({
