@@ -23,7 +23,7 @@ let obj = {
 
 let resp = await axios({
 method: "post",
-url: "http://localhost:3001/api/purchases",
+url: "https://store-app-mern-stack.herokuapp.com/api/purchases",
 data:obj ,
 headers: {'Content-Type' : 'application/json'},
 })
@@ -45,7 +45,7 @@ return resp.data
     let resp = await axios({
 
 method: "put",
-url: "http://localhost:3001/api/product/" +prodId ,
+url: "https://store-app-mern-stack.herokuapp.com/api/product/" +prodId ,
 data: prodObj,
 headers: {'Content-Type' : 'application/json'},
 
@@ -72,7 +72,7 @@ headers: {'Content-Type' : 'application/json'},
     let resp = await axios({
 
         method: "delete",
-        url: "http://localhost:3001/api/product/" +prodId ,
+        url: "https://store-app-mern-stack.herokuapp.com/api/product/" +prodId ,
         headers: {'Content-Type' : 'application/json'},
 
     })
@@ -99,7 +99,7 @@ headers: {'Content-Type' : 'application/json'},
     let resp = await axios({
 
         method: "put",
-        url: "http://localhost:3001/api/customers/" +customerId ,
+        url: "https://store-app-mern-stack.herokuapp.com/api/customers/" +customerId ,
         data: custObj,
         headers: {'Content-Type' : 'application/json'},
         
@@ -127,7 +127,7 @@ headers: {'Content-Type' : 'application/json'},
     let resp = await axios({
 
         method: "delete",
-        url: "http://localhost:3001/api/customers/" +customerId ,
+        url: "https://store-app-mern-stack.herokuapp.com/api/customers/" +customerId ,
         headers: {'Content-Type' : 'application/json'},
 
     })
@@ -157,7 +157,7 @@ headers: {'Content-Type' : 'application/json'},
 
     let resp =  await axios({
         method: "post",
-        url: "http://localhost:3001/api/customers",
+        url: "https://store-app-mern-stack.herokuapp.com/api/customers",
         data:obj ,
         headers: {'Content-Type' : 'application/json'},
         })
@@ -170,7 +170,7 @@ async function addNewProduct(obj){
 
     let resp =  await axios({
         method: "post",
-        url: "http://localhost:3001/api/product",
+        url: "https://store-app-mern-stack.herokuapp.com/api/product",
         data:obj ,
         headers: {'Content-Type' : 'application/json'},
         })

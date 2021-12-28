@@ -9,6 +9,7 @@ var cors = require('cors');
 const { Mongoose } = require('mongoose');
 let app = express();
 app.use(cors())
+
 process.env.NODE_ENV = "production"
 
 const PORT = process.env.PORT || 3001
