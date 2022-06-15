@@ -1,10 +1,13 @@
 import { FormControl, InputLabel, Select, MenuItem } from "@mui/material";
-import { useState,useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { Table, Button } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import storeUtils from "../utils/storeUtils";
-//import ProductCustomer from "./ProductCustomer";
+
+import {
+  addNewCustomerObj,
+  addProductToCustomer,
+} from "../Redux/productActions";
 
 function CustomerPage() {
   const dispatch = useDispatch();
@@ -18,33 +21,20 @@ function CustomerPage() {
     city: "",
   });
 
-
-
   const storeData = useSelector((state) => state);
 
   const [selectedProduct, setSelectProduct] = useState(null);
 
-
   useEffect(() => {
     if (!selectedProduct) setSelectProduct(storeData?.products[0]);
-
-  }, [storeData.products])
+  }, [storeData.products]);
 
   const parseCustomers = () => {
     const { products, customers } = storeData;
 
     //function
 
-    const setCustomerState = (customer) => {
-
-      setCustomerChosen(customer)
-   
-      
-
-    }
-
-    
-
+    const setCustomerState = (customer) => setCustomerChosen(customer);
     return (
       <Table striped bordered hover>
         <thead>
@@ -61,9 +51,14 @@ function CustomerPage() {
           return (
             <tbody key={oCustomer._id}>
               <tr className="tbl-td-cust-name" key={oCustomer._id}>
-                <td     onClick={() => setCustomerState(oCustomer)} >
+                <td onClick={() => setCustomerState(oCustomer)}>
                   {" "}
-                  <Link className= {`${customerChosen._id === oCustomer._id ?'linkColor' : ""}`}  to={"/customer/" + oCustomer._id}>
+                  <Link
+                    className={`${
+                      customerChosen._id === oCustomer._id ? "linkColor" : ""
+                    }`}
+                    to={"/customer/" + oCustomer._id}
+                  >
                     {" "}
                     {oCustomer.firstname} {oCustomer.lastname}{" "}
                   </Link>
@@ -110,11 +105,7 @@ function CustomerPage() {
     );
   };
 
-  
-
   //function
-
-
 
   const handleChangeProduct = (e) => {
     let productid = e.target.value;
@@ -124,22 +115,27 @@ function CustomerPage() {
   };
 
   const buyProductForCustomer = async () => {
-    let resp = await storeUtils.SaveProdForCustomer(
-      selectedProduct._id,
-      customerChosen
-    );
+    if (selectedProduct.quantity > 0) {
+      dispatch(addProductToCustomer(selectedProduct, customerChosen));
 
-    dispatch({ type: "AddPurchase", payload: { obj: resp } });
-
-    setExtDivProd(false);
+      setExtDivProd(false);
+    }
   };
 
   const changeDivProd = () => {
-    if (!extDivProd && extDivCustomer) {
+    if (!extDivProd && customerChosen && extDivCustomer) {
       setExtDivProd(true);
       setExtDivCustomer(false);
-    } else if (!extDivProd && !extDivCustomer) {
+    } else if (!extDivProd && customerChosen && !extDivCustomer) {
       setExtDivProd(true);
+    } else if (!extDivCustomer && !customerChosen && extDivProd) {
+      setExtDivCustomer(false);
+      setExtDivProd(false);
+      alert("before choose but product has to choose a customer!");
+    } else if (!extDivCustomer && !customerChosen && !extDivProd) {
+      //setExtDivCustomer(true);
+
+      alert("before choose a product you have to choose a customer!");
     } else {
       setExtDivProd(false);
     }
@@ -157,16 +153,12 @@ function CustomerPage() {
   };
 
   const addNewCustomer = async () => {
-    let resp = await storeUtils.addNewCustomer(newCustumer);
+    dispatch(addNewCustomerObj(newCustumer));
 
-    dispatch({ type: "AddCustomer", payload: { oCustomer: resp } });
-    setExtDivCustomer(false)
+    setExtDivCustomer(false);
   };
 
   const returnToCustomerPage = () => setExtDivCustomer(false);
-
-
- 
 
   return (
     <div>
@@ -195,7 +187,9 @@ function CustomerPage() {
           <div className="abs-div-form">
             <h1 style={{ color: "gray" }}>Select Product</h1>
             <FormControl fullWidth>
-              <InputLabel id="demo-simple-select-label">Select Product</InputLabel>
+              <InputLabel id="demo-simple-select-label">
+                Select Product
+              </InputLabel>
               <Select
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
@@ -221,8 +215,11 @@ function CustomerPage() {
               {" "}
               Buy{" "}
             </Button>
-            <br/><br/>
-            <h2>Customer : {customerChosen.firstname} {' '} {customerChosen.lastname}</h2>
+            <br />
+            <br />
+            <h2>
+              Customer : {customerChosen.firstname} {customerChosen.lastname}
+            </h2>
           </div>
         </div>
       )}

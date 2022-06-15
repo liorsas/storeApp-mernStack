@@ -1,7 +1,7 @@
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import storeUtils from "../utils/storeUtils";
+import { updateCustomerObj, deleteCustomerObj } from "../Redux/productActions";
 
 function EditCustomer() {
   const dispatch = useDispatch();
@@ -24,7 +24,9 @@ function EditCustomer() {
 
     let purchaseArr = state.purchases;
 
-    let customerProducts = purchaseArr.filter((el) => el.customerid === customerId);
+    let customerProducts = purchaseArr.filter(
+      (el) => el.customerid === customerId
+    );
 
     let customerProductsNotDup = customerProducts.reduce((acc, curr) => {
       const x = acc.find((item) => item.productid === curr.productid);
@@ -37,13 +39,12 @@ function EditCustomer() {
     }, []);
 
     for (let i = 0; i < customerProductsNotDup.length; i++) {
-      customerProductsNotDup[i].name =
-      prodArr.find((el) => el._id === customerProductsNotDup[i].productid).name
-             
-
+      customerProductsNotDup[i].name = prodArr.find(
+        (el) => el._id === customerProductsNotDup[i].productid
+      ).name;
     }
 
-    stateObj.customerProd = customerProductsNotDup
+    stateObj.customerProd = customerProductsNotDup;
 
     return stateObj;
   });
@@ -68,14 +69,7 @@ function EditCustomer() {
     ) {
       const customerId = params.id;
 
-      let rspCust = await storeUtils.updateCustomer(customerId, customer);
-
-      let newOBJ ={
-        ...rspCust,_id:customerId
-
-      }
-
-      dispatch({ type:"UpdateCustomer", payload: { oCustomer: newOBJ,custId:customerId } });
+      dispatch(updateCustomerObj(customerId, customer));
 
       navigate("/customers");
     }
@@ -84,98 +78,96 @@ function EditCustomer() {
   const deleteCustomer = async () => {
     const customerId = params.id;
 
-    let resp = await storeUtils.deleteCustomer(customerId);
+    dispatch(deleteCustomerObj(customerId));
 
-    
-    dispatch({
-      type: "deleteCustomerFromPurchaseAnCustomers",
-      payload: { customerid:resp},
-    });
+    //let resp = await storeUtils.deleteCustomer(customerId);
+
+    // dispatch({
+    //   type: "deleteCustomerFromPurchaseAnCustomers",
+    //   payload: { customerid: resp },
+    // });
     navigate("/customers");
   };
 
-
-  
   return (
     <div>
-    <div className="edit-prod-gen">
-      <div className="upd-prod-form">
-        <h1> Edit Customer </h1>
-        <div className="upd-prod-nest">
-          <label className="lbl-field">
-            {" "}
-            first Name:
-            <input
-              className="inp-field-prod"
-              type="text"
-              value={customer.firstname}
-              onChange={(e) =>
-                setCustomer({ ...customer, firstname: e.target.value })
-              }
-            />
-          </label>
-          <br />
-          <label className="lbl-field">
-            {" "}
-            Last Name:
-            <input
-              className="inp-field-prod"
-              type="text"
-              value={customer.lastname}
-              onChange={(e) =>
-                setCustomer({ ...customer, lastname: e.target.value })
-              }
-            />
-          </label><br />
-          <label className="lbl-field">
-            {" "}
-            City:
-            <input
-              className="inp-field-prod"
-              type="text"
-              value={customer.city}
-              onChange={(e) =>
-                setCustomer({ ...customer, city: e.target.value })
-              }
-            />
-          </label>
-          <br />
-        
-          <br />
-          <input
-            className="btn-upd-prod"
-            type="button"
-            value="Update"
-            onClick={updateCustomer}
-          />
-          <input
-            className="btn-upd-prod"
-            type="button"
-            value="Delete"
-            onClick={deleteCustomer}
-          />
-        </div>
-      </div>
+      <div className="edit-prod-gen">
+        <div className="upd-prod-form">
+          <h1> Edit Customer </h1>
+          <div className="upd-prod-nest">
+            <label className="lbl-field">
+              {" "}
+              first Name:
+              <input
+                className="inp-field-prod"
+                type="text"
+                value={customer.firstname}
+                onChange={(e) =>
+                  setCustomer({ ...customer, firstname: e.target.value })
+                }
+              />
+            </label>
+            <br />
+            <label className="lbl-field">
+              {" "}
+              Last Name:
+              <input
+                className="inp-field-prod"
+                type="text"
+                value={customer.lastname}
+                onChange={(e) =>
+                  setCustomer({ ...customer, lastname: e.target.value })
+                }
+              />
+            </label>
+            <br />
+            <label className="lbl-field">
+              {" "}
+              City:
+              <input
+                className="inp-field-prod"
+                type="text"
+                value={customer.city}
+                onChange={(e) =>
+                  setCustomer({ ...customer, city: e.target.value })
+                }
+              />
+            </label>
+            <br />
 
-      {storeData.customerProd.length > 0 && (
-        <div className="edit-prod-cust">
-          <h1>Products List</h1>
-          <ul>
-            {storeData.customerProd.map((cust) => {
-              return (
-                <li key={cust.customerid}>
-                  {" "}
-                  <Link to={"/product/" + cust.productid}>
-                    {cust.name}{" "}
-                  </Link>{" "}
-                </li>
-              );
-            })}
-          </ul>
+            <br />
+            <input
+              className="btn-upd-prod"
+              type="button"
+              value="Update"
+              onClick={updateCustomer}
+            />
+            <input
+              className="btn-upd-prod"
+              type="button"
+              value="Delete"
+              onClick={deleteCustomer}
+            />
+          </div>
         </div>
-      )}
+
+        {storeData.customerProd.length > 0 && (
+          <div className="edit-prod-cust">
+            <h1>Products List</h1>
+            <ul>
+              {storeData.customerProd.map((cust) => {
+                return (
+                  <li key={cust.customerid}>
+                    {" "}
+                    <Link to={"/" + cust.productid}>{cust.name} </Link>{" "}
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        )}
+      </div>
     </div>
-  </div>
   );
 }
 export default EditCustomer;

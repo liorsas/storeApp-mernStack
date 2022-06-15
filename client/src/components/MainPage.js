@@ -11,12 +11,10 @@ function MainPage() {
     <div>
       <Routes>
         <Route path="/" element={<MenuPage />}>
-          <Route path="products" element={<ProductPage />}></Route>
-          <Route path="product/:id" element={<EditProduct />}></Route>
+          <Route path="" element={<ProductPage />}></Route>
+          <Route path=":id" element={<EditProduct />}></Route>
           <Route path="customers" element={<CustomerPage />}></Route>
-          <Route path="customer/:id" element={<EditCustomer />}>
-            
-          </Route>
+          <Route path="customer/:id" element={<EditCustomer />}></Route>
           <Route path="purchased" element={<PurchasedPage />}></Route>
         </Route>
       </Routes>

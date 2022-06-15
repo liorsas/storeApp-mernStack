@@ -2,7 +2,8 @@ import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Button } from "react-bootstrap";
 import Product from "./Product";
-import storeUtils from "../utils/storeUtils";
+
+import { addnewProduct } from "../Redux/productActions";
 
 function ProductPage() {
   const dispatch = useDispatch();
@@ -14,37 +15,27 @@ function ProductPage() {
     quantity: 0,
   });
 
-  const purchaseAmount = useSelector((state) => state);
+  const purchaseAmount = useSelector((state) => {
+    console.log(state);
+    return state;
+  });
 
-  //fuctions
-
-  // const addNewProduct = () => {
-
-  //   return (dispatch)  => {
-
-  //    // dispatch({type:"AddProduct"})
-  //   return axios({
-  //       method: "post",
-  //       url: "http://localhost:3001/api/product",
-  //       data:newProduct ,
-  //       headers: {'Content-Type' : 'application/json'},
-  //       }).then(
-  //         prod => dispatch({type:"AddProduct",payload: { oProduct: prod }}))
-
-  //   }
-
-  // }
+  //function
 
   const addNewProduct = async () => {
-    let resp = await storeUtils.addNewProduct(newProduct);
-
-    dispatch({ type: "AddProduct", payload: { oProduct: resp } });
+    dispatch(addnewProduct(newProduct));
     setNewProduct({ name: "", price: 0, quantity: 0 });
     setProdDiv(false);
   };
 
   const returnToProductPage = () => {
     setProdDiv(false);
+  };
+
+  const renderProducts = () => {
+    purchaseAmount.products.map((prod) => {
+      return <Product key={prod._id} product={prod} />;
+    });
   };
 
   return (
@@ -125,10 +116,6 @@ function ProductPage() {
         </div>
       )}
 
-      <br />
-      <br />
-      <br />
-      <br />
       <br />
 
       <div className="prods-grid">

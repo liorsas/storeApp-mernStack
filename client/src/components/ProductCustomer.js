@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { Button } from "react-bootstrap";
-import storeUtils from "../utils/storeUtils";
+import { addProdToCustomer } from "../Redux/productActions";
 
 import { Select, MenuItem } from "@mui/material";
 
@@ -10,16 +10,8 @@ function ProductCustomer({ customer }) {
   const dispatch = useDispatch();
 
   const [visibleDiv, setVisibleDiv] = useState(false);
-  //const[productArr,setProductArr] = useState([])
+
   const [selectProduct, setSelectProduct] = useState(null);
-
-  // const productName = useSelector((state) => {
-  //   let productArr = state.products;
-
-  //   let productObjArr = productArr.map((prod) => ({
-  //     id: prod._id,
-  //     name: prod.name,
-  //   }));
 
   const storeData = useSelector((state) => state);
 
@@ -37,12 +29,19 @@ function ProductCustomer({ customer }) {
   };
 
   const saveProductToCustomer = async () => {
-    let resp = await storeUtils.SaveProdForCustomer(
-      selectProduct._id,
-      customer.customerid
-    );
-
-    dispatch({ type: "AddPurchase", payload: { obj: resp } });
+    if (selectProduct.quantity > 0) {
+      let newProdObj = {
+        _id: selectProduct._id,
+        name: selectProduct.name,
+        price: selectProduct.price,
+        quantity: selectProduct.quantity - 1,
+      };
+      dispatch(
+        addProdToCustomer(selectProduct._id, customer.customerid, newProdObj)
+      );
+    } else {
+      alert(`product- ${selectProduct.name} it is out of stock.`);
+    }
   };
 
   return (

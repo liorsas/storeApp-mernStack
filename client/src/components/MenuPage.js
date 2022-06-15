@@ -1,30 +1,14 @@
-import axios from "axios";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Outlet } from "react-router-dom";
 import NavbarComp from "./NavbarComp";
+import { fetchData } from "../Redux/productActions";
 
 function MenuPage() {
   const dispatch = useDispatch();
 
-  useEffect(async () => {
-    let productsWs = await axios.get("https://store-app-mern-stack.herokuapp.com/api/product");
-    let productsArr = productsWs.data;
-
-    let customersWs = await axios.get("https://store-app-mern-stack.herokuapp.com/api/customers");
-    let customersArr = customersWs.data;
-
-    let purchasesWs = await axios.get("https://store-app-mern-stack.herokuapp.com/api/purchases");
-    let purchasesArr = purchasesWs.data;
-
-    dispatch({
-      type: "Load",
-      payload: {
-        products: productsArr,
-        customers: customersArr,
-        purchases: purchasesArr,
-      },
-    });
+  useEffect(() => {
+    dispatch(fetchData());
   }, []);
 
   return (

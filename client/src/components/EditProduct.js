@@ -1,7 +1,8 @@
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import storeUtils from "../utils/storeUtils";
+
+import { updateProductObj, deleteProductObj } from "../Redux/productActions";
 
 function EditProduct() {
   const dispatch = useDispatch();
@@ -9,10 +10,6 @@ function EditProduct() {
   const navigate = useNavigate();
 
   const params = useParams();
-
-  // function onlyUnique(value, index, self) {
-  //   return self.indexOf(value.customerid) === index;
-  // }
 
   const storeData = useSelector((state) => {
     const stateObj = {};
@@ -65,40 +62,27 @@ function EditProduct() {
 
   //functions
 
-  const updateProduct = async () => {
+  const updateProduct = () => {
     if (
       product.name !== storeData.product.name ||
       product.price !== storeData.product.price ||
       product.quantity !== storeData.product.quantity
     ) {
       const prodId = params.id;
+      console.log("test");
 
-      let rspProd = await storeUtils.updateProduct(prodId, product);
+      dispatch(updateProductObj(prodId, product));
 
-      let newOBJ ={
-        ...rspProd,_id:prodId
-
-      }
-
-
-      dispatch({ type: "UpdateProduct", payload: { oProd: newOBJ,prodId:prodId } });
-
-      navigate("/products");
+      navigate("/");
     }
   };
 
   const deleteProduct = async () => {
     const prodId = params.id;
 
-    let resp = await storeUtils.deleteProduct(prodId);
+    dispatch(deleteProductObj(prodId));
 
-    console.log(resp);
-
-    dispatch({
-      type: "deleteProdFromPurchaseAnProducts",
-      payload: { prodid:resp },
-    });
-    navigate("/products");
+    navigate("/");
   };
 
   return (

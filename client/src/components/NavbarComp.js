@@ -10,7 +10,7 @@ export default class NavbarComp extends Component {
             <Container>
               <Navbar.Brand href="#home">Store App</Navbar.Brand>
               <Nav className="me-auto">
-                <Nav.Link href="/products">Products</Nav.Link>
+                <Nav.Link href="/">Products</Nav.Link>
                 <Nav.Link href="/customers">Customers</Nav.Link>
                 <Nav.Link href="/purchased">Purchases</Nav.Link>
               </Nav>

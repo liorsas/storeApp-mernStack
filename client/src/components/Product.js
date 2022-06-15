@@ -4,14 +4,6 @@ import { Card } from "react-bootstrap";
 import ProductCustomer from "./ProductCustomer";
 
 function Product({ product }) {
-  //useState
-
-  //const [customerList,setCustomerList] = useState([])
-  //const [visibleDiv,setVisibleDiv] = useState(false)
-  //const[productN,setProductN] = useState(null)
-
-  //useSelector
-
   const storeData = useSelector((state) => {
     let filPurchases = state.purchases.filter(
       (item) => item.productid === product._id
@@ -29,23 +21,11 @@ function Product({ product }) {
     return filPurchases;
   });
 
-  // const productName  = useSelector(state => {
-
-  //     let productArr = state.products
-
-  //     let productNameArr = productArr.map( prod => prod.name)
-
-  //     return productNameArr
-
-  //     })
-
-  //functions
-
   return (
     <div>
-      <Card>
+      <Card className="prod-card">
         <div className="prod-items">
-          <Link to={"/product/" + product._id}>
+          <Link to={"/" + product._id}>
             <h1> {product.name}</h1>
           </Link>
           <label> Price: {product.price} </label> <br />
