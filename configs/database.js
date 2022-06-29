@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const dbUri =
  
-  "mongodb+srv://liorsas:Nati0307@store-app-mern-stack.vv1bu.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+  "mongodb+srv://liorsas:Nati0307@store-app-clus.3gprwlk.mongodb.net/?retryWrites=true&w=majority"
 
 mongoose
   .connect(process.env.MONGODB_URI || dbUri)
