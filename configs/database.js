@@ -1,8 +1,6 @@
 const mongoose = require("mongoose");
 const dbUri =
-  //process.env.DEV_MODE === "true" ?
-  // "mongodb://localhost:27017/storeDB"
-  // "mongodb+srv://liorsas:Nati0307&@cluster0.80kdp.mongodb.net/usersDB?authSource=admin&replicaSet=atlas-mncsto-shard-0&readPreference=primary&appname=MongoDB%20Compass&ssl=true"
+ 
   "mongodb+srv://liorsas:Nati0307&@store-app-mern-stack.vv1bu.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
 
 mongoose
