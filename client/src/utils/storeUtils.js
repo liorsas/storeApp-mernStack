@@ -1,5 +1,30 @@
 import axios from "axios";
 
+async function fetchAllData() {
+  let productsWs = await axios.get(
+    "https://store-app-mern-stack.herokuapp.com/api/product"
+  );
+  let productsArr = productsWs.data;
+
+  let customersWs = await axios.get(
+    "https://store-app-mern-stack.herokuapp.com/api/customers"
+  );
+  let customersArr = customersWs.data;
+
+  let purchasesWs = await axios.get(
+    "https://store-app-mern-stack.herokuapp.com/api/purchases"
+  );
+  let purchasesArr = purchasesWs.data;
+
+  let obj = {
+    products: productsArr,
+    customers: customersArr,
+    purchases: purchasesArr,
+  };
+
+  return obj;
+}
+
 async function SaveProdForCustomer(prodId, customerid) {
   //calc current date :
 
@@ -97,14 +122,7 @@ const exportFiles = {
   deleteCustomer,
   addNewCustomer,
   addNewProduct,
+  fetchAllData,
 };
 
-export default {
-  SaveProdForCustomer,
-  updateProduct,
-  deleteProduct,
-  updateCustomer,
-  deleteCustomer,
-  addNewCustomer,
-  addNewProduct,
-};
+export default exportFiles;
